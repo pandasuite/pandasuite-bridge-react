@@ -1,0 +1,35 @@
+{
+  "name": "pandasuite-bridge-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "release": "release-it"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandasuite/pandasuite-bridge-react.git"
+  },
+  "author": "PandaSuite",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pandasuite/pandasuite-bridge-react/issues"
+  },
+  "homepage": "https://github.com/pandasuite/pandasuite-bridge-react#readme",
+  "release-it": {},
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "release-it": "^12.6.3"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "pandasuite-bridge": "^4.1.6",
+    "prop-types": "^15.7.2",
+    "react": ">=16.8.0"
+  }
+}
