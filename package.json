@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "description": "",
   "main": "lib/pandasuite-bridge-react.js",
+  "types": "pandasuite-bridge-react.d.ts",
   "scripts": {
     "build": "babel src/index.js > lib/pandasuite-bridge-react.js",
     "release": "npm run build && release-it"
