@@ -2,6 +2,7 @@ import React, { useState, useEffect, Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
 import PandaBridge from 'pandasuite-bridge';
+import html2canvas from 'html2canvas';
 
 export const usePandaBridge = function usePandaBridge(values, hooks) {
   const [bridge, setBridge] = useState(values);
@@ -51,7 +52,21 @@ export const usePandaBridge = function usePandaBridge(values, hooks) {
 
       if (getScreenshotHook) {
         PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
-        PandaBridge.getScreenshot(() => getScreenshotHook());
+        PandaBridge.getScreenshot((resultCallback) => getScreenshotHook(resultCallback));
+      } else {
+        PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
+        PandaBridge.getScreenshot((resultCallback) => {
+          html2canvas(document.body, {
+            backgroundColor: null,
+            scale: 3,
+          }).then((canvas) => {
+            canvas.toBlob((blob) => {
+              const fileReader = new FileReader();
+              fileReader.onload = (e) => { resultCallback(e.target.result); };
+              fileReader.readAsDataURL(blob);
+            });
+          });
+        });
       }
 
       PandaBridge.unlisten(PandaBridge.SET_SNAPSHOT_DATA);
