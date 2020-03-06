@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.15",
-    "pandasuite-bridge": "^4.1.6",
+    "pandasuite-bridge": "^4.1.7",
     "prop-types": "^15.7.2",
     "react": ">=16.8.0"
   }
