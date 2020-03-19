@@ -3351,10 +3351,12 @@ package-json@^6.3.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
-pandasuite-bridge@^4.1.8:
-  version "4.1.8"
-  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-4.1.8.tgz#d8ec07aa930a33fb36a423ca927c7e0ef661b1c6"
-  integrity sha512-SUyVQ6QvmCE7qj+kGAP5xz9ZvLsOgXfHZXYeaWI+6uy/8axFUUt9INkMVLUUhw53YBtz8Nd8+RZ9m07qxhClJQ==
+pandasuite-bridge@^4.1.9:
+  version "4.1.9"
+  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-4.1.9.tgz#beb5dec1c207960315518fda0c5811a793ab8471"
+  integrity sha512-jyHSmnbJau8bVBQYw5Ri9UewwK6TqiJmlLvHLEq4yn8YRnFuFnJgGKH0x/AG40mq9HFiIJbBehDxKQzpmvUMfQ==
+  dependencies:
+    lodash "^4.17.15"
 
 parent-module@^1.0.0:
   version "1.0.1"

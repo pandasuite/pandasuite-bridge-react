@@ -4,6 +4,14 @@ import _ from 'lodash';
 import PandaBridge from 'pandasuite-bridge';
 import html2canvas from 'html2canvas';
 
+const localizedResources = function localizedResources(resources) {
+  return _.chain(resources)
+    .keyBy('id')
+    .mapValues(
+      (resource) => ({ id: resource.id, path: PandaBridge.resolvePath(resource.id) }),
+    ).value();
+};
+
 export const usePandaBridge = function usePandaBridge(values, hooks) {
   const [bridge, setBridge] = useState(values);
   const {
@@ -13,29 +21,48 @@ export const usePandaBridge = function usePandaBridge(values, hooks) {
     component: componentHooks,
   } = hooks || {};
   const { getSnapshotDataHook } = markersHooks || {};
-  const { getScreenshotHook } = componentHooks || {};
+  const { getScreenshotHook, onLanguageChanged } = componentHooks || {};
+
+  const {
+    properties, markers, resources, triggeredMarker,
+  } = bridge;
 
   useEffect(() => {
     PandaBridge.init(() => {
       PandaBridge.onLoad((pandaData) => {
-        const { triggeredMarker } = bridge;
         const newBridge = {
           properties: pandaData.properties || {},
           markers: pandaData.markers || [],
-          resources: _.keyBy(pandaData.resources || [], 'id'),
+          resources: localizedResources(pandaData.resources),
           triggeredMarker,
         };
         if (!_.isEqual(bridge, newBridge)) {
           setBridge(newBridge);
         }
+
+        PandaBridge.unlisten(PandaBridge.LANGUAGE);
+        PandaBridge.listen(PandaBridge.LANGUAGE, (args) => {
+          const oldLanguage = PandaBridge.currentLanguage;
+          PandaBridge.currentLanguage = args && args.language;
+          const newResources = localizedResources(PandaBridge.resources);
+
+          if (!_.isEqual(resources, newResources)) {
+            setBridge({
+              properties,
+              markers,
+              resources: newResources,
+              triggeredMarker,
+            });
+          }
+          if (onLanguageChanged && oldLanguage !== PandaBridge.currentLanguage) {
+            onLanguageChanged(args);
+          }
+        });
       });
 
       if (getSnapshotDataHook) {
         PandaBridge.unlisten(PandaBridge.GET_SNAPSHOT_DATA);
         PandaBridge.getSnapshotData(() => {
-          const {
-            properties, markers, resources, triggeredMarker,
-          } = bridge;
           const newMarkerData = getSnapshotDataHook();
 
           if (_.isArray(newMarkerData)) {
@@ -71,8 +98,6 @@ export const usePandaBridge = function usePandaBridge(values, hooks) {
 
       PandaBridge.unlisten(PandaBridge.SET_SNAPSHOT_DATA);
       PandaBridge.setSnapshotData((pandaData) => {
-        const { properties, markers, resources } = bridge;
-
         setBridge({
           properties, markers, resources, triggeredMarker: pandaData,
         });
