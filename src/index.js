@@ -20,7 +20,7 @@ export const usePandaBridge = function usePandaBridge(values, hooks) {
     synchronization: synchHooks,
     component: componentHooks,
   } = hooks || {};
-  const { getSnapshotDataHook } = markersHooks || {};
+  const { getSnapshotDataHook, setSnapshotDataHook } = markersHooks || {};
   const { getScreenshotHook, onLanguageChanged } = componentHooks || {};
 
   const {
@@ -101,6 +101,9 @@ export const usePandaBridge = function usePandaBridge(values, hooks) {
         setBridge({
           properties, markers, resources, triggeredMarker: pandaData,
         });
+        if (setSnapshotDataHook) {
+          setSnapshotDataHook(pandaData);
+        }
       });
 
       _.each(actionsHooks, (func, name) => {
