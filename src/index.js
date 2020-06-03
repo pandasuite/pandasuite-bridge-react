@@ -58,6 +58,18 @@ export const usePandaBridge = function usePandaBridge(values, hooks) {
             onLanguageChanged(args);
           }
         });
+
+        PandaBridge.onUpdate((updatedPandaData) => {
+          const newUpdatedBridge = {
+            properties: updatedPandaData.properties || {},
+            markers: updatedPandaData.markers || [],
+            resources: localizedResources(updatedPandaData.resources),
+            triggeredMarker,
+          };
+          if (!_.isEqual(bridge, newUpdatedBridge)) {
+            setBridge(newUpdatedBridge);
+          }
+        });
       });
 
       if (getSnapshotDataHook) {
