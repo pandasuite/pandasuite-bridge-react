@@ -35,7 +35,7 @@
   "dependencies": {
     "html2canvas": "^1.0.0-rc.5",
     "lodash": "^4.17.15",
-    "pandasuite-bridge": "^4.2.2",
+    "pandasuite-bridge": "^4.2.3",
     "prop-types": "^15.7.2",
     "react": ">=16.8.0",
     "recoil": "^0.0.10"
