@@ -1,6 +1,6 @@
 {
   "name": "pandasuite-bridge-react",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "",
   "main": "lib/pandasuite-bridge-react.js",
   "types": "pandasuite-bridge-react.d.ts",
