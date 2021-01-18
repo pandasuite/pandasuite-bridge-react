@@ -211,6 +211,12 @@ export const usePandaBridge = function usePandaBridge(hooks) {
       });
       setBridge({ properties: { ...bridge.properties, [key]: value } });
     },
+    setResources: (resources) => {
+      PandaBridge.send(PandaBridge.UPDATED, {
+        resources,
+      });
+      setBridge({ resources });
+    },
   };
 };
 
