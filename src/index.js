@@ -217,7 +217,7 @@ export const usePandaBridge = function usePandaBridge(hooks) {
       PandaBridge.send(PandaBridge.UPDATED, {
         resources,
       });
-      setBridge({ resources });
+      setBridge({ resources: localizedResources(resources) });
     },
   };
 };
