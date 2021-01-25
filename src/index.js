@@ -21,6 +21,8 @@ const localizedResources = function localizedResources(resources) {
       {
         id: resource.id,
         path: PandaBridge.resolvePath(resource.id),
+        local: !!resource.local,
+        data: resource.data,
       }
     ),
   );
