@@ -7,6 +7,8 @@ import each from 'lodash/each';
 import keyBy from 'lodash/keyBy';
 import mapValues from 'lodash/mapValues';
 import uniqBy from 'lodash/uniqBy';
+import map from 'lodash/map';
+import assign from 'lodash/assign';
 
 import PandaBridge from 'pandasuite-bridge';
 import html2canvas from 'html2canvas';
@@ -212,6 +214,12 @@ export const usePandaBridge = function usePandaBridge(hooks) {
         ],
       });
       setBridge({ properties: { ...bridge.properties, [key]: value } });
+    },
+    setProperties: (properties) => {
+      PandaBridge.send(PandaBridge.UPDATED, {
+        properties: map(properties, (v, k) => ({ id: k, value: v })),
+      });
+      setBridge({ properties: assign({}, bridge.properties, properties) });
     },
     setResources: (resources) => {
       PandaBridge.send(PandaBridge.UPDATED, {
