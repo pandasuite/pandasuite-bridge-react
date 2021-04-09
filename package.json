@@ -37,7 +37,7 @@
     "lodash": "^4.17.15"
   },
   "peerDependencies": {
-    "pandasuite-bridge": "^4.2.3",
+    "pandasuite-bridge": "^4.3.0",
     "prop-types": "^15.7.2",
     "react": ">=16.8.0",
     "recoil": "^0.0.10"
