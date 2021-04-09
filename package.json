@@ -2,10 +2,10 @@
   "name": "pandasuite-bridge-react",
   "version": "2.0.7",
   "description": "",
-  "main": "lib/pandasuite-bridge-react.js",
+  "main": "./lib/index.js",
   "types": "pandasuite-bridge-react.d.ts",
   "scripts": {
-    "build": "babel src/index.js > lib/pandasuite-bridge-react.js",
+    "build": "babel src -x .es6,.js,.es,.jsx,.mjs,.ts,.tsx --out-dir lib",
     "release": "npm run build && release-it"
   },
   "repository": {
@@ -22,19 +22,21 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
-    "@babel/preset-react": "^7.8.3",
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.18.3",
-    "eslint-plugin-react-hooks": "^1.7.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.13.13",
+    "eslint": "^7.23.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "release-it": "^12.6.3"
   },
   "dependencies": {
     "html2canvas": "^1.0.0-rc.5",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.15"
+  },
+  "peerDependencies": {
     "pandasuite-bridge": "^4.2.3",
     "prop-types": "^15.7.2",
     "react": ">=16.8.0",
