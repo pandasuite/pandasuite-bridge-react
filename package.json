@@ -6,7 +6,7 @@
   "types": "pandasuite-bridge-react.d.ts",
   "scripts": {
     "build": "rm -rf lib/* && babel src -x .es6,.js,.es,.jsx,.mjs,.ts,.tsx --out-dir lib",
-    "release": "npm run build && release-it"
+    "release": "npm run build && git status && release-it"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,7 @@
     "url": "https://github.com/pandasuite/pandasuite-bridge-react/issues"
   },
   "homepage": "https://github.com/pandasuite/pandasuite-bridge-react#readme",
-  "release-it": {
-    "requireCleanWorkingDir": false
-  },
+  "release-it": {},
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.6",
