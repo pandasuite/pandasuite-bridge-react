@@ -2679,6 +2679,11 @@ graceful-fs@^4.1.11, graceful-fs@^4.1.2:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.3.tgz#4a12ff1b60376ef09862c2093edd908328be8423"
   integrity sha512-a30VEBm4PEdx1dRB7MFK7BejejvCvBronbLjht+sHuGYj8PHs7M/5Z+rt5lw551vZ7yfTCj4Vuyy3mSJytDWRQ==
 
+hamt_plus@1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/hamt_plus/-/hamt_plus-1.0.2.tgz#e21c252968c7e33b20f6a1b094cd85787a265601"
+  integrity sha1-4hwlKWjH4zsg9qGwlM2FeHomVgE=
+
 has-bigints@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/has-bigints/-/has-bigints-1.0.1.tgz#64fe6acb020673e3b78db035a5af69aa9d07b113"
@@ -3828,6 +3833,11 @@ package-json@^6.3.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
+pandasuite-bridge@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-4.3.1.tgz#9df268160a409304e95f8cb97ae38005e57e73cc"
+  integrity sha512-Q6e/wjA3RQ2WSp8bB729t55zeN07Xt0XkBF4unTlYSTnEMDePUi+MzU4VDIMKy7bCicoFIheO3wO7o/RcOMutg==
+
 parent-module@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-1.0.1.tgz#691d2709e78c79fae3a156622452d00762caaaa2"
@@ -4061,6 +4071,13 @@ rechoir@^0.6.2:
   integrity sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   dependencies:
     resolve "^1.1.6"
+
+recoil@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/recoil/-/recoil-0.3.1.tgz#40ef544160d19d76e25de8929d7e512eace13b90"
+  integrity sha512-KNA3DRqgxX4rRC8E7fc6uIw7BACmMPuraIYy+ejhE8tsw7w32CetMm8w7AMZa34wzanKKkev3vl3H7Z4s0QSiA==
+  dependencies:
+    hamt_plus "1.0.2"
 
 regenerate-unicode-properties@^8.2.0:
   version "8.2.0"
