@@ -227,6 +227,16 @@ export const usePandaBridge = function usePandaBridge(hooks) {
       });
       setBridge({ resources: localizedResources(resources) });
     },
+    addActions: (h, replace) => {
+      each(h, (func, name) => {
+        if (isFunction(func)) {
+          if (replace) {
+            PandaBridge.unlisten(name);
+          }
+          PandaBridge.listen(name, (data) => func(...data));
+        }
+      });
+    },
   };
 };
 
