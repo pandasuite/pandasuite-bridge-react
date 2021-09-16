@@ -9,6 +9,7 @@ import mapValues from 'lodash/mapValues';
 import uniqBy from 'lodash/uniqBy';
 import map from 'lodash/map';
 import assign from 'lodash/assign';
+import isEqual from 'lodash/isEqual';
 
 import PandaBridge from 'pandasuite-bridge';
 import html2canvas from 'html2canvas';
@@ -65,19 +66,19 @@ const bridgeState = selector({
       triggeredMarker,
     };
   },
-  set: ({ set }, {
+  set: ({ set, get }, {
     properties, markers, resources, triggeredMarker,
   }) => {
-    if (properties !== undefined) {
+    if (properties !== undefined && !isEqual(properties, get(propertiesState))) {
       set(propertiesState, properties);
     }
-    if (markers !== undefined) {
+    if (markers !== undefined && !isEqual(markers, get(markersState))) {
       set(markersState, markers);
     }
-    if (resources !== undefined) {
+    if (resources !== undefined && !isEqual(resources, get(resourcesState))) {
       set(resourcesState, resources);
     }
-    if (triggeredMarker !== undefined) {
+    if (triggeredMarker !== undefined && !isEqual(triggeredMarker, get(triggeredMarkerState))) {
       set(triggeredMarkerState, triggeredMarker);
     }
   },
