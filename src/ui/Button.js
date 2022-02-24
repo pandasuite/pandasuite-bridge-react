@@ -7,7 +7,6 @@ const Button = function Button(props) {
   return (
     <button
       className={`inline-flex items-center py-1 px-5 text-sm font-medium rounded ${primary ? 'text-white bg-green-500 hover:bg-green-600' : 'text-purple-600 bg-gray-100 hover:bg-gray-200'} focus:outline-none transition ease-in-out duration-150 ${className || ''}`}
-      disabled={loading}
       {...rest}
     >
       {loading && (
