@@ -143,65 +143,70 @@ export const usePandaBridge = function usePandaBridge(hooks) {
 
       firstTime = false;
     }
+  }, []);
 
-    if (onLanguageChanged) {
-      PandaBridge.listen(PandaBridge.LANGUAGE, (args) => {
-        onLanguageChanged(args);
-      });
-    }
+  if (onLanguageChanged) {
+    PandaBridge.unlisten(PandaBridge.LANGUAGE);
+    PandaBridge.listen(PandaBridge.LANGUAGE, (args) => {
+      onLanguageChanged(args);
+    });
+  }
 
-    if (getSnapshotDataHook) {
-      PandaBridge.getSnapshotData(() => {
-        const newMarkerData = getSnapshotDataHook();
+  if (getSnapshotDataHook) {
+    PandaBridge.unlisten(PandaBridge.GET_SNAPSHOT_DATA);
+    PandaBridge.getSnapshotData(() => {
+      const newMarkerData = getSnapshotDataHook();
 
-        if (isArray(newMarkerData)) {
-          addMarker(newMarkerData);
-        } else {
-          addMarker([newMarkerData]);
-        }
-        return newMarkerData;
-      });
-    }
+      if (isArray(newMarkerData)) {
+        addMarker(newMarkerData);
+      } else {
+        addMarker([newMarkerData]);
+      }
+      return newMarkerData;
+    });
+  }
 
-    if (getScreenshotHook) {
-      PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
-      PandaBridge.getScreenshot((resultCallback) => getScreenshotHook(resultCallback));
-    } else {
-      PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
-      PandaBridge.getScreenshot((resultCallback) => {
-        html2canvas(document.body, {
-          backgroundColor: null,
-          scale: 3,
-        }).then((canvas) => {
-          canvas.toBlob((blob) => {
-            const fileReader = new FileReader();
-            fileReader.onload = (e) => { resultCallback(e.target.result); };
-            fileReader.readAsDataURL(blob);
-          });
+  if (getScreenshotHook) {
+    PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
+    PandaBridge.getScreenshot((resultCallback) => getScreenshotHook(resultCallback));
+  } else {
+    PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
+    PandaBridge.getScreenshot((resultCallback) => {
+      html2canvas(document.body, {
+        backgroundColor: null,
+        scale: 3,
+      }).then((canvas) => {
+        canvas.toBlob((blob) => {
+          const fileReader = new FileReader();
+          fileReader.onload = (e) => { resultCallback(e.target.result); };
+          fileReader.readAsDataURL(blob);
         });
       });
-    }
+    });
+  }
 
-    if (setSnapshotDataHook) {
-      PandaBridge.setSnapshotData((pandaData) => {
-        if (setSnapshotDataHook) {
-          setSnapshotDataHook(pandaData);
-        }
-      });
-    }
-
-    each(actionsHooks, (func, name) => {
-      if (isFunction(func)) {
-        PandaBridge.listen(name, (data) => func(...data));
+  if (setSnapshotDataHook) {
+    PandaBridge.unlisten(PandaBridge.SET_SNAPSHOT_DATA);
+    PandaBridge.setSnapshotData((pandaData) => {
+      if (setSnapshotDataHook) {
+        setSnapshotDataHook(pandaData);
       }
     });
+  }
 
-    each(synchHooks, (func, name) => {
-      if (isFunction(func)) {
-        PandaBridge.synchronize(name, func);
-      }
-    });
-  }, []);
+  each(actionsHooks, (func, name) => {
+    if (isFunction(func)) {
+      PandaBridge.unlisten(name);
+      PandaBridge.listen(name, (data) => func(...data));
+    }
+  });
+
+  PandaBridge.unlisten(PandaBridge.SYNCHRONIZE);
+  each(synchHooks, (func, name) => {
+    if (isFunction(func)) {
+      PandaBridge.synchronize(name, func);
+    }
+  });
 
   return {
     ...bridge,
