@@ -20,14 +20,17 @@ import {
 const localizedResources = function localizedResources(resources) {
   return mapValues(
     keyBy(resources, 'id'),
-    (resource) => (
-      {
+    (resource) => {
+      const r = PandaBridge.resolveResource(resource.id);
+
+      return {
         id: resource.id,
-        path: PandaBridge.resolvePath(resource.id),
+        path: (r || {}).path,
+        srcsets: (r || {}).srcsets,
         local: !!resource.local,
         data: resource.data,
-      }
-    ),
+      };
+    },
   );
 };
 
