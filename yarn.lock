@@ -3833,10 +3833,10 @@ package-json@^6.3.0:
     registry-url "^5.0.0"
     semver "^6.2.0"
 
-pandasuite-bridge@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-4.4.1.tgz#209cc291885e029a267df6ad18671ee215962be1"
-  integrity sha512-o9y3AgXwyUiTs+OsIrQ9HK8PjdAJ8EkyaPWh9YGBSxVpTyfLoeH4AqNYxDZOJA3rzagyWgg1e9flbkLzyiZggA==
+pandasuite-bridge@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-4.5.0.tgz#d3b010c3523b2844032dcd3376ca120631bd91f8"
+  integrity sha512-6X4rFErqyyEGFdDmwyJB0WZCaj8ObNlH7WuZGE8F0ztfczRVKMF+FB29VIKrzFHu3+uLpvRAFzn9psvHbgy3Uw==
   dependencies:
     lodash "^4.17.21"
 
