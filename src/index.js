@@ -14,24 +14,25 @@ import isEqual from 'lodash/isEqual';
 import PandaBridge from 'pandasuite-bridge';
 import html2canvas from 'html2canvas';
 import {
-  atom, useRecoilState, RecoilRoot, selector, useSetRecoilState,
+  atom,
+  useRecoilState,
+  RecoilRoot,
+  selector,
+  useSetRecoilState,
 } from 'recoil';
 
 const localizedResources = function localizedResources(resources) {
-  return mapValues(
-    keyBy(resources, 'id'),
-    (resource) => {
-      const r = PandaBridge.resolveResource(resource.id);
+  return mapValues(keyBy(resources, 'id'), (resource) => {
+    const r = PandaBridge.resolveResource(resource.id);
 
-      return {
-        id: resource.id,
-        path: (r || {}).path,
-        srcsets: (r || {}).srcsets,
-        local: !!resource.local,
-        data: resource.data,
-      };
-    },
-  );
+    return {
+      id: resource.id,
+      path: (r || {}).path,
+      srcsets: (r || {}).srcsets,
+      local: !!resource.local,
+      data: resource.data,
+    };
+  });
 };
 
 const propertiesState = atom({
@@ -69,10 +70,11 @@ const bridgeState = selector({
       triggeredMarker,
     };
   },
-  set: ({ set, get }, {
-    properties, markers, resources, triggeredMarker,
-  }) => {
-    if (properties !== undefined && !isEqual(properties, get(propertiesState))) {
+  set: ({ set, get }, { properties, markers, resources, triggeredMarker }) => {
+    if (
+      properties !== undefined &&
+      !isEqual(properties, get(propertiesState))
+    ) {
       set(propertiesState, properties);
     }
     if (markers !== undefined && !isEqual(markers, get(markersState))) {
@@ -81,7 +83,10 @@ const bridgeState = selector({
     if (resources !== undefined && !isEqual(resources, get(resourcesState))) {
       set(resourcesState, resources);
     }
-    if (triggeredMarker !== undefined && !isEqual(triggeredMarker, get(triggeredMarkerState))) {
+    if (
+      triggeredMarker !== undefined &&
+      !isEqual(triggeredMarker, get(triggeredMarkerState))
+    ) {
       set(triggeredMarkerState, triggeredMarker);
     }
   },
@@ -89,10 +94,14 @@ const bridgeState = selector({
 
 const addMarkerState = selector({
   key: 'addMarkerState',
+  get: ({ get }) => get(markersState),
   set: ({ set, get }, newMarkers) => {
     const markers = get(markersState);
 
-    set(markersState, uniqBy(markers.concat(newMarkers), (marker) => marker.id));
+    set(
+      markersState,
+      uniqBy(markers.concat(newMarkers), (marker) => marker.id),
+    );
   },
 });
 
@@ -115,13 +124,11 @@ export const usePandaBridge = function usePandaBridge(hooks) {
     if (firstTime) {
       PandaBridge.init(() => {
         PandaBridge.onLoad((pandaData) => {
-          setBridge(
-            {
-              properties: pandaData.properties || {},
-              markers: pandaData.markers || [],
-              resources: localizedResources(pandaData.resources),
-            },
-          );
+          setBridge({
+            properties: pandaData.properties || {},
+            markers: pandaData.markers || [],
+            resources: localizedResources(pandaData.resources),
+          });
 
           PandaBridge.listen(PandaBridge.LANGUAGE, (args) => {
             PandaBridge.currentLanguage = args && args.language;
@@ -129,13 +136,11 @@ export const usePandaBridge = function usePandaBridge(hooks) {
           });
 
           PandaBridge.onUpdate((updatedPandaData) => {
-            setBridge(
-              {
-                properties: updatedPandaData.properties,
-                markers: updatedPandaData.markers,
-                resources: localizedResources(updatedPandaData.resources),
-              },
-            );
+            setBridge({
+              properties: updatedPandaData.properties,
+              markers: updatedPandaData.markers,
+              resources: localizedResources(updatedPandaData.resources),
+            });
           });
         });
 
@@ -171,7 +176,9 @@ export const usePandaBridge = function usePandaBridge(hooks) {
 
   if (getScreenshotHook) {
     PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
-    PandaBridge.getScreenshot((resultCallback) => getScreenshotHook(resultCallback));
+    PandaBridge.getScreenshot((resultCallback) =>
+      getScreenshotHook(resultCallback),
+    );
   } else {
     PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
     PandaBridge.getScreenshot((resultCallback) => {
@@ -181,7 +188,9 @@ export const usePandaBridge = function usePandaBridge(hooks) {
       }).then((canvas) => {
         canvas.toBlob((blob) => {
           const fileReader = new FileReader();
-          fileReader.onload = (e) => { resultCallback(e.target.result); };
+          fileReader.onload = (e) => {
+            resultCallback(e.target.result);
+          };
           fileReader.readAsDataURL(blob);
         });
       });
@@ -252,11 +261,7 @@ export const usePandaBridge = function usePandaBridge(hooks) {
 export const PandaBridgeRoot = function PandaBridgeRoot(props) {
   const { children } = props;
 
-  return (
-    <RecoilRoot>
-      {children}
-    </RecoilRoot>
-  );
+  return <RecoilRoot>{children}</RecoilRoot>;
 };
 
 PandaBridgeRoot.propTypes = {
@@ -267,7 +272,7 @@ class BridgeComponent extends Component {
   render() {
     const { children, ...rest } = this.props;
 
-    return (children(rest));
+    return children(rest);
   }
 }
 
@@ -276,18 +281,20 @@ BridgeComponent.propTypes = {
 };
 
 const WrapperBridge = function WrapperBridge(props) {
-  const {
-    markers, actions, synchronization, component, children,
-  } = props;
-  const rest = usePandaBridge({}, {
-    markers, actions, synchronization, component,
-  });
+  const { markers, actions, synchronization, component, children } = props;
+  const rest = usePandaBridge(
+    {},
+    {
+      markers,
+      actions,
+      synchronization,
+      component,
+    },
+  );
 
   return (
     // eslint-disable-next-line react/jsx-props-no-spreading
-    <BridgeComponent {...rest}>
-      {children}
-    </BridgeComponent>
+    <BridgeComponent {...rest}>{children}</BridgeComponent>
   );
 };
 
