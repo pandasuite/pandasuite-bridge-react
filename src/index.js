@@ -299,10 +299,16 @@ const WrapperBridge = function WrapperBridge(props) {
 };
 
 WrapperBridge.propTypes = {
-  markers: PropTypes.objectOf(PropTypes.func),
+  markers: PropTypes.shape({
+    getSnapshotDataHook: PropTypes.func,
+    setSnapshotDataHook: PropTypes.func,
+  }),
   actions: PropTypes.objectOf(PropTypes.func),
   synchronization: PropTypes.objectOf(PropTypes.func),
-  component: PropTypes.objectOf(PropTypes.func),
+  component: PropTypes.shape({
+    getScreenshotHook: PropTypes.func,
+    onLanguageChanged: PropTypes.func,
+  }),
   children: PropTypes.func.isRequired,
 };
 
