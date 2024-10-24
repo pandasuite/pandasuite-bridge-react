@@ -12,7 +12,6 @@ import assign from 'lodash/assign';
 import isEqual from 'lodash/isEqual';
 
 import PandaBridge from 'pandasuite-bridge';
-import html2canvas from 'html2canvas';
 import {
   atom,
   useRecoilState,
@@ -182,16 +181,18 @@ export const usePandaBridge = function usePandaBridge(hooks) {
   } else {
     PandaBridge.unlisten(PandaBridge.GET_SCREENSHOT);
     PandaBridge.getScreenshot((resultCallback) => {
-      html2canvas(document.body, {
-        backgroundColor: null,
-        scale: 3,
-      }).then((canvas) => {
-        canvas.toBlob((blob) => {
-          const fileReader = new FileReader();
-          fileReader.onload = (e) => {
-            resultCallback(e.target.result);
-          };
-          fileReader.readAsDataURL(blob);
+      import('html2canvas').then(({ default: html2canvas }) => {
+        html2canvas(document.body, {
+          backgroundColor: null,
+          scale: 3,
+        }).then((canvas) => {
+          canvas.toBlob((blob) => {
+            const fileReader = new FileReader();
+            fileReader.onload = (e) => {
+              resultCallback(e.target.result);
+            };
+            fileReader.readAsDataURL(blob);
+          });
         });
       });
     });
