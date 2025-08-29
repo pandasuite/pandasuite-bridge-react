@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/pandasuite/pandasuite-bridge-react#readme",
   "release-it": {},
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.8.6",
