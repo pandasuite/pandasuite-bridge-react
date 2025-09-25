@@ -4,5 +4,6 @@ export { default as Checkbox } from './Checkbox';
 export { default as Dropdown } from './Dropdown';
 export { default as DropdownItem } from './DropdownItem';
 export { default as Input } from './Input';
+export { default as Loader } from './Loader';
 export { default as Tab } from './Tab';
 export { default as Tabs } from './Tabs';
