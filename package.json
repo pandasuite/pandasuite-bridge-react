@@ -2,10 +2,28 @@
   "name": "pandasuite-bridge-react",
   "version": "2.8.0",
   "description": "",
-  "main": "./lib/index.js",
-  "types": "pandasuite-bridge-react.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./pandasuite-bridge-react.d.ts",
+  "exports": {
+    ".": {
+      "types": "./pandasuite-bridge-react.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./tailwind.config": "./tailwind.config.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "tailwind.config.js",
+    "pandasuite-bridge-react.d.ts"
+  ],
+  "sideEffects": false,
   "scripts": {
-    "build": "rm -rf lib/* && babel src -x .es6,.js,.es,.jsx,.mjs,.ts,.tsx --out-dir lib",
+    "build": "rm -rf dist && vite build",
+    "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
+    "format": "prettier --write .",
     "release": "npm run build && git status && release-it"
   },
   "repository": {
@@ -23,25 +41,30 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.9.0",
-    "@babel/preset-react": "^7.13.13",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.19",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-prettier": "^5.1.3",
     "pandasuite-bridge": "^5.0.3",
-    "recoil": "^0.7.6",
-    "prop-types": "^15.7.2",
-    "react": ">=16.8.0",
-    "eslint": "^7.23.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-react": "^7.23.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "release-it": "^17.10.0"
+    "postcss": "^8.4.38",
+    "prettier": "^3.2.5",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recoil": "^0.7.7",
+    "release-it": "^17.10.0",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.2.8"
   },
   "dependencies": {
-    "html2canvas": "^1.0.0-rc.5",
-    "lodash": "^4.17.15"
+    "fast-deep-equal": "^3.1.3",
+    "html2canvas": "^1.4.1"
   },
   "peerDependencies": {
     "pandasuite-bridge": "^5.0.3",

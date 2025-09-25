@@ -1,7 +1,11 @@
-const bridgeConfig = require('pandasuite-bridge/tailwind.config');
+const path = require('path');
+const baseConfig = require('pandasuite-bridge/tailwind.config');
 
-bridgeConfig.content.push(
-  './node_modules/pandasuite-bridge-react/src/**/*.{js,jsx,ts,tsx}',
-);
-
-module.exports = bridgeConfig;
+module.exports = {
+  ...baseConfig,
+  content: [
+    ...(baseConfig.content || []),
+    path.join(__dirname, 'src/**/*.{js,jsx,ts,tsx}'),
+    path.join(__dirname, 'dist/**/*.{js,jsx,ts,tsx,mjs,cjs}'),
+  ],
+};

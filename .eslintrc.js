@@ -3,7 +3,11 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: [
+    'plugin:react/recommended',
+    'airbnb',
+    'plugin:prettier/recommended',
+  ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -12,15 +16,17 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
     },
-    ecmaVersion: 2018,
+    ecmaVersion: 2021,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'operator-linebreak': 'off',
-    'object-curly-newline': 'off',
-    'implicit-arrow-linebreak': 'off',
-    'function-paren-newline': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/no-unused-prop-types': 'off',
+    'react/button-has-type': 'off',
   },
 };

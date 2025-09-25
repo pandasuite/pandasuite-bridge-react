@@ -1,2 +1,3 @@
 node_modules
-/lib/pandasuite-bridge-react.js
+lib
+/dist
