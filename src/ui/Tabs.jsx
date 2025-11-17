@@ -13,7 +13,13 @@ const renderContent = (activeKey, children) => {
   return match?.props.children ?? null;
 };
 
-function Tabs({ children, activeKey, className, onTabChange }) {
+function Tabs({
+  children,
+  activeKey,
+  className,
+  contentClassName,
+  onTabChange,
+}) {
   const items = useMemo(
     () => React.Children.toArray(children).filter(Boolean),
     [children],
@@ -72,7 +78,7 @@ function Tabs({ children, activeKey, className, onTabChange }) {
           );
         })}
       </div>
-      <div className="px-2 pb-2.5">
+      <div className={classNames('px-2 pb-2.5', contentClassName)}>
         {renderContent(currentActiveKey, items)}
       </div>
     </>
@@ -83,12 +89,14 @@ Tabs.propTypes = {
   activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  contentClassName: PropTypes.string,
   onTabChange: PropTypes.func,
 };
 
 Tabs.defaultProps = {
   activeKey: undefined,
   className: undefined,
+  contentClassName: undefined,
   onTabChange: undefined,
 };
 
