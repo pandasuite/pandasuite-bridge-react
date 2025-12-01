@@ -93,7 +93,10 @@ function usePandaBridge(hooks = {}) {
         PandaBridge.onUpdate((updatedPandaData = {}) => {
           setBridge((prev) => ({
             ...prev,
-            properties: updatedPandaData.properties ?? prev.properties,
+            properties: {
+              ...(updatedPandaData.properties ?? prev.properties),
+              [PandaBridge.LANGUAGE]: PandaBridge.currentLanguage,
+            },
             markers: updatedPandaData.markers,
             resources: localizeResources(updatedPandaData.resources),
           }));
