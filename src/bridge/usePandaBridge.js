@@ -75,9 +75,14 @@ function usePandaBridge(hooks = {}) {
 
         PandaBridge.listen(PandaBridge.LANGUAGE, (args) => {
           PandaBridge.currentLanguage = args?.language;
-          setBridge({
+          setBridge((prev) => ({
+            ...prev,
+            properties: {
+              ...prev.properties,
+              [PandaBridge.LANGUAGE]: args?.language,
+            },
             resources: localizeResources(PandaBridge.resources),
-          });
+          }));
 
           const handler = onLanguageChangedRef.current;
           if (typeof handler === 'function') {
@@ -86,11 +91,12 @@ function usePandaBridge(hooks = {}) {
         });
 
         PandaBridge.onUpdate((updatedPandaData = {}) => {
-          setBridge({
-            properties: updatedPandaData.properties,
+          setBridge((prev) => ({
+            ...prev,
+            properties: updatedPandaData.properties ?? prev.properties,
             markers: updatedPandaData.markers,
             resources: localizeResources(updatedPandaData.resources),
-          });
+          }));
         });
       });
 

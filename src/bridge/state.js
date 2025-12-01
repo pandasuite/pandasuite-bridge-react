@@ -31,7 +31,19 @@ export const bridgeState = selector({
     resources: get(resourcesState) ?? {},
     triggeredMarker: get(triggeredMarkerState),
   }),
-  set: ({ set, get }, nextValue) => {
+  set: ({ set, get }, nextValueOrUpdater) => {
+    const currentValue = {
+      properties: get(propertiesState) ?? {},
+      markers: get(markersState) ?? [],
+      resources: get(resourcesState) ?? {},
+      triggeredMarker: get(triggeredMarkerState),
+    };
+
+    const nextValue =
+      typeof nextValueOrUpdater === 'function'
+        ? nextValueOrUpdater(currentValue)
+        : nextValueOrUpdater;
+
     if (!nextValue) {
       return;
     }
