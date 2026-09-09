@@ -3626,10 +3626,10 @@ package-json@^10.0.0:
     registry-url "^6.0.1"
     semver "^7.6.0"
 
-pandasuite-bridge@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-5.0.3.tgz#9b93f6f30d490fe8d1ecdbdd649eb74ea8305064"
-  integrity sha512-A308fZy0LiUooJFsfNIbkR2hGLGkqp35QBOVvTORCX4/onbDa2G3ELcX/ANnWu+Gl7dtBjTIqy6rukxTctdRkw==
+pandasuite-bridge@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/pandasuite-bridge/-/pandasuite-bridge-5.1.0.tgz#3fe95f197139223a9460b2a7a4c228c3f9dfd6b8"
+  integrity sha512-WWzzvGHYNwoNYHKGntVqE/R05lUgjI9UoYKI7BYWASXnswKwf/E7xq0i+w+kHg1Qr63ImypLFnGhj/Cy+Vayqw==
   dependencies:
     core-js "^3.36.0"
     lodash-es "^4.17.21"
